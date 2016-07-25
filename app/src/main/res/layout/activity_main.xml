@@ -43,4 +43,12 @@
         android:id="@+id/loginButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create Account"
+        android:id="@+id/bCreateAccount"
+        android:layout_above="@+id/searchButton"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
