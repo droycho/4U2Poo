@@ -61,17 +61,18 @@ public class RefugeService {
                     boolean accessible = restroomJSON.getBoolean("accessible");
                     boolean unisex = restroomJSON.getBoolean("unisex");
                     String directions = restroomJSON.getString("directions");
-                    String comment = restroomJSON.getString("comment");
-                    double latituded = restroomJSON.getDouble("latitude");
+                    String comments = restroomJSON.getString("comment");
+                    double latitude = restroomJSON.getDouble("latitude");
                     double longitude = restroomJSON.getDouble("longitude");
-//                    Date created = restroomJSON.getDate("created_at");
-//                    Date updated = restroomJSON.getDate("updated_at");
+                    String created = restroomJSON.getString("created_at");
+                    String updated = restroomJSON.getString("updated_at");
                     int downvotes = restroomJSON.getInt("downvote");
-                    int upvote = restroomJSON.getInt("upvote");
-                    Restroom restroom = new Restroom(name);
+                    int upvotes = restroomJSON.getInt("upvote");
+                    Restroom restroom = new Restroom(id, name, street, city, state, country, accessible, unisex, directions, comments, latitude, longitude, created, updated, downvotes, upvotes);
                     restrooms.add(restroom);
                     Log.v(TAG, restroom.getName() + " added to restaurants ArrayList");
                 }
+                Log.v(TAG, restrooms.size() + " restrooms added to ArrayList");
             }
         } catch (IOException e) {
             e.printStackTrace();

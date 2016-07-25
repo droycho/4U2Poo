@@ -18,12 +18,12 @@ public class Restroom {
     private String mComments;
     private double mLatitude;
     private double mLongitude;
-    private Date mCreated;
-    private Date mUpdated;
+    private String mCreated;
+    private String mUpdated;
     private int mDownvotes;
     private int mUpvotes;
 
-    public Restroom(int id, String name, String street, String city, String state, String country, boolean accessible, boolean unisex, String directions, String comments, double latitude, double longitude, Date created, Date updated, int downvotes, int upvotes) {
+    public Restroom(int id, String name, String street, String city, String state, String country, boolean accessible, boolean unisex, String directions, String comments, double latitude, double longitude, String created, String updated, int downvotes, int upvotes) {
         mId = id;
         mName = name;
         mStreet = street;
@@ -146,19 +146,17 @@ public class Restroom {
         mLongitude = longitude;
     }
 
-    public Date getCreated() {
-        return mCreated;
-    }
+    public String getCreated() { return mCreated; }
 
-    public void setCreated(Date created) {
+    public void setCreated(String created) {
         mCreated = created;
     }
 
-    public Date getUpdated() {
+    public String getUpdated() {
         return mUpdated;
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(String updated) {
         mUpdated = updated;
     }
 
