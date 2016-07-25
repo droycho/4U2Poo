@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.searchButton) Button mSearchButton;
     @Bind(R.id.loginButton) Button mLoginButton;
+    @Bind(R.id.bCreateAccount) Button mCreateAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mSearchButton.setOnClickListener(this);
         mLoginButton.setOnClickListener(this);
+        mCreateAccount.setOnClickListener(this);
     }
 
     @Override
@@ -33,6 +35,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        LoginButton from Mainpage
         if (view == mLoginButton) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+        if (view == mCreateAccount) {
+            Intent intent = new Intent(MainActivity.this, CreateAccountActivity.class);
             startActivity(intent);
         }
     }
