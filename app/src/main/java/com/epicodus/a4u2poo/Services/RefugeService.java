@@ -20,7 +20,7 @@ public class RefugeService {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.REFUGE_BASE_URL).newBuilder();
         String url = urlBuilder.build().toString();
 
-        Request request = Request.Builder()
+        Request request = new Request.Builder()
                 .url(url)
                 .build();
 
