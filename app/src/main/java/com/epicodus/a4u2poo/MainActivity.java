@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        // NOTE: THIS NOT HAS BEEN ADDED ARBITRARILY TO TEST BRANCHING AND MERGING IS WORKING WITHOUT EFFECTING THE MASTER
+
         mSearchButton.setOnClickListener(this);
         mLoginButton.setOnClickListener(this);
     }
