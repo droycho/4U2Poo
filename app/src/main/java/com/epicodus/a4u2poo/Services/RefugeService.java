@@ -13,7 +13,7 @@ import okhttp3.Request;
  */
 public class RefugeService {
 
-    public static void queryRefuge(float latitude, float longitude, Callback callback) {
+    public static void queryRefuge(double latitude, double longitude, Callback callback) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
 

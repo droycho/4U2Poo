@@ -24,7 +24,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private void getRestrooms(String location) {
         final RefugeService refugeService = new RefugeService();
-        refugeService.queryRefuge((float) 45.5231, (float) -122.6765, new Callback() {
+        refugeService.queryRefuge(45.5231, -122.6765, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
