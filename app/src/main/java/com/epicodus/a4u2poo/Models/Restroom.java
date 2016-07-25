@@ -46,6 +46,10 @@ public class Restroom {
 
     }
 
+    public Restroom(String name) {
+        mName = name;
+    }
+
     public int getId() {
         return mId;
     }

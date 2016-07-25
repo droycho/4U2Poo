@@ -4,9 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.epicodus.a4u2poo.Models.Restroom;
 import com.epicodus.a4u2poo.Services.RefugeService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -14,6 +16,8 @@ import okhttp3.Response;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String TAG = DetailActivity.class.getSimpleName();
+
+    public ArrayList<Restroom> mRestrooms = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +36,12 @@ public class DetailActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    String jsonData = response.body().string();
-                    Log.v(TAG, jsonData);
-                } catch (IOException e) {
-                    e.printStackTrace();
+
+                if (response.isSuccessful()) {
+                    mRestrooms = refugeService.processResults(response);
+//                        Log.d(TAG, mRestrooms.get(0).toString());
                 }
+
             }
         });
     }
