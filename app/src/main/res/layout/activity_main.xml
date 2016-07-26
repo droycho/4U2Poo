@@ -51,4 +51,15 @@
         android:id="@+id/bCreateAccount"
         android:layout_above="@+id/searchButton"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Added for tesing Github pull, push, merge chops"
+        android:id="@+id/textView3"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="235dp" />
 </RelativeLayout>
