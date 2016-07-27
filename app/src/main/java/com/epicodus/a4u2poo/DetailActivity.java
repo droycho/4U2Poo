@@ -52,7 +52,7 @@ public class DetailActivity extends AppCompatActivity implements
     @Override
     public void onConnected(Bundle connectionHint) {
         DetailActivityPermissionsDispatcher.requestLocationWithCheck(this);
-        getRestrooms(mLatitude, mLongitude);
+        getRestrooms(mLatitude, mLongitude, false, false);
     }
 
     @NeedsPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -118,9 +118,9 @@ public class DetailActivity extends AppCompatActivity implements
         }
     }
 
-    private void getRestrooms(double lat, double lng) {
+    private void getRestrooms(double lat, double lng, boolean ada, boolean unisex) {
         final RefugeService refugeService = new RefugeService();
-        refugeService.queryRefuge(lat, lng, new Callback() {
+        refugeService.queryRefuge(lat, lng, ada, unisex, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();

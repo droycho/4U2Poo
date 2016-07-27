@@ -27,13 +27,19 @@ public class RefugeService {
     public static final String TAG = RefugeService.class.getSimpleName();
 
 
-    public static void queryRefuge(double latitude, double longitude, Callback callback) {
+    public static void queryRefuge(double latitude, double longitude, boolean ada, boolean unisex, Callback callback) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.REFUGE_BASE_URL).newBuilder();
         urlBuilder.setQueryParameter(Constants.LATITUDE_SEARCH_KEY, String.valueOf(latitude));
         urlBuilder.addQueryParameter(Constants.LONGITUDE_SEARCH_KEY, String.valueOf(longitude));
+        if (ada) {
+            urlBuilder.addQueryParameter(Constants.ADA_SEARCH_KEY, "1");
+        }
+        if (unisex) {
+            urlBuilder.addQueryParameter(Constants.UNISEX_SEARCH_KEY, "1");
+        }
         String url = urlBuilder.build().toString();
         Log.d(TAG, "URL: " + url);
         Request request = new Request.Builder()
