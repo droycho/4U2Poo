@@ -9,8 +9,8 @@ import android.widget.Toast;
 import com.epicodus.a4u2poo.Models.Restroom;
 import com.epicodus.a4u2poo.Services.RefugeService;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiActivity;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
@@ -20,14 +20,20 @@ import java.util.ArrayList;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.RuntimePermissions;
 
+@RuntimePermissions
 public class DetailActivity extends AppCompatActivity implements
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener{
     public static final String TAG = DetailActivity.class.getSimpleName();
 
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private ArrayList<Restroom> mRestrooms = new ArrayList<>();
+    private Location mCurrentLocation;
+    private String mLatitudeString;
+    private String mLongitudeString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +50,32 @@ public class DetailActivity extends AppCompatActivity implements
         getRestrooms("Portland");
     }
 
+    @NeedsPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
     @Override
     public void onConnected(Bundle connectionHint) {
-        Location mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        Log.d(TAG, "Current location" + mCurrentLocation.toString());
+        Log.d(TAG, "mGoogleApiClient.isConnected(): " + mGoogleApiClient.isConnected());
+        try {
+            mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        } catch (SecurityException e) {
+            Log.e(TAG, "SecurityException:");
+            e.printStackTrace();
+        }
+        if (mCurrentLocation != null) {
+            Log.d(TAG, "Non-null location");
+            mLatitudeString = (String.valueOf(mCurrentLocation.getLatitude()));
+            mLongitudeString = (String.valueOf(mCurrentLocation.getLongitude()));
+        } else {
+            mLocationRequest = LocationRequest.create()
+                    .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                    .setInterval(10 * 1000)
+                    .setFastestInterval(1 * 1000);
+            try {
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            } catch (SecurityException e) {
+                Log.e(TAG, "SecurityException:");
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -76,6 +104,15 @@ public class DetailActivity extends AppCompatActivity implements
         super.onStop();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+            mGoogleApiClient.disconnect();
+        }
+    }
+
     private void getRestrooms(String location) {
         final RefugeService refugeService = new RefugeService();
         refugeService.queryRefuge(45.5231, -122.6765, new Callback() {
@@ -89,11 +126,21 @@ public class DetailActivity extends AppCompatActivity implements
 
                 if (response.isSuccessful()) {
                     mRestrooms = refugeService.processResults(response);
-//                        Log.d(TAG, mRestrooms.get(0).toString());
                 }
 
             }
         });
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // NOTE: delegate the permission handling to generated method
+        DetailActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
 }

@@ -70,9 +70,9 @@ public class RefugeService {
                     int upvotes = restroomJSON.getInt("upvote");
                     Restroom restroom = new Restroom(id, name, street, city, state, country, accessible, unisex, directions, comments, latitude, longitude, created, updated, downvotes, upvotes);
                     restrooms.add(restroom);
-                    Log.v(TAG, restroom.getName() + " added to restaurants ArrayList");
+                    Log.v(TAG, "Added to restrooms ArrayList: " + restroom.getName());
                 }
-                Log.v(TAG, restrooms.size() + " restrooms added to ArrayList");
+                Log.d(TAG, restrooms.size() + " restrooms added to ArrayList");
             }
         } catch (IOException e) {
             e.printStackTrace();
