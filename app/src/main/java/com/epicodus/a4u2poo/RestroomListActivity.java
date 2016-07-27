@@ -21,11 +21,13 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
 public class RestroomListActivity extends AppCompatActivity implements
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener{
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     public static final String TAG = RestroomListActivity.class.getSimpleName();
 
     private GoogleApiClient mGoogleApiClient;
@@ -38,7 +40,7 @@ public class RestroomListActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_restroom_list);
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
@@ -46,41 +48,12 @@ public class RestroomListActivity extends AppCompatActivity implements
                     .addApi(LocationServices.API)
                     .build();
         }
-        mGoogleApiClient.connect();
     }
 
     @Override
     public void onConnected(Bundle connectionHint) {
         RestroomListActivityPermissionsDispatcher.requestLocationWithCheck(this);
         getRestrooms(mLatitude, mLongitude, false, false);
-    }
-
-    @NeedsPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
-    public void requestLocation() {
-        Log.d(TAG, "mGoogleApiClient.isConnected(): " + mGoogleApiClient.isConnected());
-        try {
-            mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        } catch (SecurityException e) {
-            Log.e(TAG, "SecurityException:");
-            e.printStackTrace();
-        }
-        if (mCurrentLocation != null) {
-            Log.d(TAG, "Non-null location");
-            mLatitude = mCurrentLocation.getLatitude();
-            mLongitude = mCurrentLocation.getLongitude();
-            Log.d(TAG, mLatitude + ", " + mLongitude);
-        } else {
-            mLocationRequest = LocationRequest.create()
-                    .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                    .setInterval(10 * 1000)
-                    .setFastestInterval(1 * 1000);
-            try {
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-            } catch (SecurityException e) {
-                Log.e(TAG, "SecurityException:");
-                e.printStackTrace();
-            }
-        }
     }
 
     @Override
@@ -99,8 +72,8 @@ public class RestroomListActivity extends AppCompatActivity implements
 
     @Override
     protected void onStart() {
-        mGoogleApiClient.connect();
         super.onStart();
+        mGoogleApiClient.connect();
     }
 
     @Override
@@ -137,6 +110,34 @@ public class RestroomListActivity extends AppCompatActivity implements
         });
     }
 
+    @NeedsPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
+    public void requestLocation() {
+        Log.d(TAG, "mGoogleApiClient.isConnected(): " + mGoogleApiClient.isConnected());
+        try {
+            mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        } catch (SecurityException e) {
+            Log.e(TAG, "SecurityException:");
+            e.printStackTrace();
+        }
+        if (mCurrentLocation != null) {
+            Log.d(TAG, "Non-null location");
+            mLatitude = mCurrentLocation.getLatitude();
+            mLongitude = mCurrentLocation.getLongitude();
+            Log.d(TAG, mLatitude + ", " + mLongitude);
+        } else {
+            mLocationRequest = LocationRequest.create()
+                    .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                    .setInterval(10 * 1000)
+                    .setFastestInterval(1 * 1000);
+            try {
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            } catch (SecurityException e) {
+                Log.e(TAG, "SecurityException:");
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     public void onLocationChanged(Location location) {
 
@@ -147,5 +148,24 @@ public class RestroomListActivity extends AppCompatActivity implements
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         // NOTE: delegate the permission handling to generated method
         RestroomListActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+//    @OnShowRationale(android.Manifest.permission.ACCESS_FINE_LOCATION)
+//    void showRationaleForCamera(PermissionRequest request) {
+//        new AlertDialog.Builder(this)
+//                .setMessage("4U2Poo uses your location to find the nearest restrooms")
+//                .setPositiveButton(R.string.button_allow, (dialog, button) -> request.proceed())
+//                .setNegativeButton(R.string.button_deny, (dialog, button) -> request.cancel())
+//                .show();
+//    }
+
+    @OnPermissionDenied(android.Manifest.permission.ACCESS_FINE_LOCATION)
+    void showDeniedForCamera() {
+        Toast.makeText(this, R.string.permission_location_denied, Toast.LENGTH_SHORT).show();
+    }
+
+    @OnNeverAskAgain(android.Manifest.permission.ACCESS_FINE_LOCATION)
+    void showNeverAskForCamera() {
+        Toast.makeText(this, R.string.permission_location_neverask, Toast.LENGTH_SHORT).show();
     }
 }
