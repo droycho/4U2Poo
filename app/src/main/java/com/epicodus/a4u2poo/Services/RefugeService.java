@@ -24,16 +24,24 @@ import okhttp3.Response;
  * Created by Guest on 7/25/16.
  */
 public class RefugeService {
-    public final String TAG = RefugeService.class.getSimpleName();
+    public static final String TAG = RefugeService.class.getSimpleName();
 
 
-    public static void queryRefuge(double latitude, double longitude, Callback callback) {
+    public static void queryRefuge(double latitude, double longitude, boolean ada, boolean unisex, Callback callback) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.REFUGE_BASE_URL).newBuilder();
+        urlBuilder.setQueryParameter(Constants.LATITUDE_SEARCH_KEY, String.valueOf(latitude));
+        urlBuilder.addQueryParameter(Constants.LONGITUDE_SEARCH_KEY, String.valueOf(longitude));
+        if (ada) {
+            urlBuilder.addQueryParameter(Constants.ADA_SEARCH_KEY, "1");
+        }
+        if (unisex) {
+            urlBuilder.addQueryParameter(Constants.UNISEX_SEARCH_KEY, "1");
+        }
         String url = urlBuilder.build().toString();
-
+        Log.d(TAG, "URL: " + url);
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -61,17 +69,18 @@ public class RefugeService {
                     boolean accessible = restroomJSON.getBoolean("accessible");
                     boolean unisex = restroomJSON.getBoolean("unisex");
                     String directions = restroomJSON.getString("directions");
-                    String comment = restroomJSON.getString("comment");
-                    double latituded = restroomJSON.getDouble("latitude");
+                    String comments = restroomJSON.getString("comment");
+                    double latitude = restroomJSON.getDouble("latitude");
                     double longitude = restroomJSON.getDouble("longitude");
-//                    Date created = restroomJSON.getDate("created_at");
-//                    Date updated = restroomJSON.getDate("updated_at");
+                    String created = restroomJSON.getString("created_at");
+                    String updated = restroomJSON.getString("updated_at");
                     int downvotes = restroomJSON.getInt("downvote");
-                    int upvote = restroomJSON.getInt("upvote");
-                    Restroom restroom = new Restroom(name);
+                    int upvotes = restroomJSON.getInt("upvote");
+                    Restroom restroom = new Restroom(id, name, street, city, state, country, accessible, unisex, directions, comments, latitude, longitude, created, updated, downvotes, upvotes);
                     restrooms.add(restroom);
-                    Log.v(TAG, restroom.getName() + " added to restaurants ArrayList");
+                    Log.v(TAG, "Added to restrooms ArrayList: " + restroom.getName());
                 }
+                Log.d(TAG, restrooms.size() + " restrooms added to ArrayList");
             }
         } catch (IOException e) {
             e.printStackTrace();

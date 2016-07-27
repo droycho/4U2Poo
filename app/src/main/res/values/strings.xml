@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">4U2Poo</string>
+    <string name="button_allow">\"Allow\"</string>
+    <string name="button_deny">\"Deny\"</string>
+    <string name="permission_location_denied">\"Location Permission Denied\"</string>
+    <string name="permission_location_neverask">\"Location Permission Never Ask\"</string>
 </resources>
