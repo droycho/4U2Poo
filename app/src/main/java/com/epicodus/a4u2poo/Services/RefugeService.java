@@ -24,7 +24,7 @@ import okhttp3.Response;
  * Created by Guest on 7/25/16.
  */
 public class RefugeService {
-    public final String TAG = RefugeService.class.getSimpleName();
+    public static final String TAG = RefugeService.class.getSimpleName();
 
 
     public static void queryRefuge(double latitude, double longitude, Callback callback) {
@@ -32,8 +32,10 @@ public class RefugeService {
                 .build();
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.REFUGE_BASE_URL).newBuilder();
+        urlBuilder.setQueryParameter(Constants.LATITUDE_SEARCH_KEY, String.valueOf(latitude));
+        urlBuilder.addQueryParameter(Constants.LONGITUDE_SEARCH_KEY, String.valueOf(longitude));
         String url = urlBuilder.build().toString();
-
+        Log.d(TAG, "URL: " + url);
         Request request = new Request.Builder()
                 .url(url)
                 .build();
