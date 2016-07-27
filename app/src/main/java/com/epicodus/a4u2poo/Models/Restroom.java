@@ -2,9 +2,10 @@ package com.epicodus.a4u2poo.Models;
 
 import java.util.Date;
 
-/**
- * Created by Guest on 7/25/16.
- */
+import org.parceler.Parcel;
+
+
+@Parcel
 public class Restroom {
     private int mId;
     private String mName;
@@ -18,12 +19,12 @@ public class Restroom {
     private String mComments;
     private double mLatitude;
     private double mLongitude;
-    private Date mCreated;
-    private Date mUpdated;
+//    private Date mCreated;
+//    private Date mUpdated;
     private int mDownvotes;
     private int mUpvotes;
 
-    public Restroom(int id, String name, String street, String city, String state, String country, boolean accessible, boolean unisex, String directions, String comments, double latitude, double longitude, Date created, Date updated, int downvotes, int upvotes) {
+    public Restroom(int id, String name, String street, String city, String state, String country, boolean accessible, boolean unisex, String directions, String comments, double latitude, double longitude, int downvotes, int upvotes) {
         mId = id;
         mName = name;
         mStreet = street;
@@ -36,8 +37,8 @@ public class Restroom {
         mComments = comments;
         mLatitude = latitude;
         mLongitude = longitude;
-        mCreated = created;
-        mUpdated = updated;
+//        mCreated = created;
+//        mUpdated = updated;
         mDownvotes = downvotes;
         mUpvotes = upvotes;
     }
@@ -146,21 +147,21 @@ public class Restroom {
         mLongitude = longitude;
     }
 
-    public Date getCreated() {
-        return mCreated;
-    }
-
-    public void setCreated(Date created) {
-        mCreated = created;
-    }
-
-    public Date getUpdated() {
-        return mUpdated;
-    }
-
-    public void setUpdated(Date updated) {
-        mUpdated = updated;
-    }
+//    public Date getCreated() {
+//        return mCreated;
+//    }
+//
+//    public void setCreated(Date created) {
+//        mCreated = created;
+//    }
+//
+//    public Date getUpdated() {
+//        return mUpdated;
+//    }
+//
+//    public void setUpdated(Date updated) {
+//        mUpdated = updated;
+//    }
 
     public int getDownvotes() {
         return mDownvotes;

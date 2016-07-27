@@ -49,6 +49,7 @@ public class RefugeService {
         try {
             String jsonData = response.body().string();
             if (response.isSuccessful()) {
+
                 JSONArray refugeJSON = new JSONArray(jsonData);
                 for (int i = 0; i < refugeJSON.length(); i++) {
                     JSONObject restroomJSON = refugeJSON.getJSONObject(i);
@@ -61,16 +62,16 @@ public class RefugeService {
                     boolean accessible = restroomJSON.getBoolean("accessible");
                     boolean unisex = restroomJSON.getBoolean("unisex");
                     String directions = restroomJSON.getString("directions");
-                    String comment = restroomJSON.getString("comment");
-                    double latituded = restroomJSON.getDouble("latitude");
+                    String comments = restroomJSON.getString("comment");
+                    double latitude = restroomJSON.getDouble("latitude");
                     double longitude = restroomJSON.getDouble("longitude");
 //                    Date created = restroomJSON.getDate("created_at");
 //                    Date updated = restroomJSON.getDate("updated_at");
                     int downvotes = restroomJSON.getInt("downvote");
-                    int upvote = restroomJSON.getInt("upvote");
-                    Restroom restroom = new Restroom(name);
+                    int upvotes = restroomJSON.getInt("upvote");
+                    Restroom restroom = new Restroom(id, name, street, city, state, country, accessible, unisex,  directions,  comments, latitude,  longitude, downvotes, upvotes);
                     restrooms.add(restroom);
-                    Log.v(TAG, restroom.getName() + " added to restaurants ArrayList");
+                    Log.v(TAG, street + "");
                 }
             }
         } catch (IOException e) {

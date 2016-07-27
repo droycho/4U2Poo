@@ -6,24 +6,53 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.epicodus.a4u2poo.Models.Restroom;
+
+import org.parceler.Parcels;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class RestroomDetailFragment extends Fragment {
 
-//
-//    public RestroomDetailFragment() {
-//        // Required empty public constructor
-//    }
-//
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_toilet_detail, container, false);
-//    }
+    @Bind(R.id.pooImageView) ImageView mPooImageView;
+    @Bind(R.id.tName) TextView mName;
+    @Bind(R.id.tStreet) TextView mStreet;
+    @Bind(R.id.tRating) TextView mRating;
+    @Bind(R.id.tComments) TextView mComments;
 
+    private Restroom mRestroom;
+
+    public static RestroomDetailFragment newInstance(Restroom restroom) {
+        RestroomDetailFragment RestroomDetailFragment = new RestroomDetailFragment();
+        Bundle args = new Bundle();
+        args.putParcelable("restroom", Parcels.wrap(restroom));
+        RestroomDetailFragment.setArguments(args);
+        return RestroomDetailFragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mRestroom = Parcels.unwrap(getArguments().getParcelable("restroom"));
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_restroom_detail, container, false);
+        ButterKnife.bind(this, view);
+
+        mName.setText(mRestroom.getName());
+        mStreet.setText(mRestroom.getStreet());
+        mComments.setText(mRestroom.getComments());
+        mRating.setText("U+1F4A9");
+
+        return view;
+    }
 }
+
+
