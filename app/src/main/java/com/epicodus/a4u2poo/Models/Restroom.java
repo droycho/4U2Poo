@@ -2,9 +2,12 @@ package com.epicodus.a4u2poo.Models;
 
 import java.util.Date;
 
+import org.parceler.Parcel;
+
 /**
  * Created by Guest on 7/25/16.
  */
+@Parcel
 public class Restroom {
     private int mId;
     private String mName;
