@@ -30,8 +30,6 @@ import okhttp3.Response;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
-import static org.parceler.Parcels.*;
-
 @RuntimePermissions
 public class DetailActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, View.OnClickListener{
@@ -166,7 +164,7 @@ public class DetailActivity extends AppCompatActivity implements
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(DetailActivity.this, MapsActivity.class);
-//        intent.putExtra("restrooms", wrap(mRestrooms));
+        intent.putExtra("restrooms", Parcels.wrap(mRestrooms));
         startActivity(intent);
 
     }
