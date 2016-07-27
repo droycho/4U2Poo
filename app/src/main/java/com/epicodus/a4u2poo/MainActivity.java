@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
 //        SearchButton from MainPage
         if (view == mSearchButton) {
-            Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+            Intent intent = new Intent(MainActivity.this, RestroomListActivity.class);
             startActivity(intent);
         }
 //        LoginButton from Mainpage

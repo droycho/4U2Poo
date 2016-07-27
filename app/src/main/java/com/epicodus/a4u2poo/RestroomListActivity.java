@@ -24,9 +24,9 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class DetailActivity extends AppCompatActivity implements
+public class RestroomListActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener{
-    public static final String TAG = DetailActivity.class.getSimpleName();
+    public static final String TAG = RestroomListActivity.class.getSimpleName();
 
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
@@ -51,7 +51,7 @@ public class DetailActivity extends AppCompatActivity implements
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        DetailActivityPermissionsDispatcher.requestLocationWithCheck(this);
+        RestroomListActivityPermissionsDispatcher.requestLocationWithCheck(this);
         getRestrooms(mLatitude, mLongitude, false, false);
     }
 
@@ -146,6 +146,6 @@ public class DetailActivity extends AppCompatActivity implements
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         // NOTE: delegate the permission handling to generated method
-        DetailActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+        RestroomListActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 }
