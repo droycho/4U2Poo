@@ -1,9 +1,12 @@
 package com.epicodus.a4u2poo;
 
+import android.content.Intent;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.epicodus.a4u2poo.Models.Restroom;
@@ -21,13 +24,13 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.OnNeverAskAgain;
-import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
 public class RestroomListActivity extends AppCompatActivity implements
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, View.OnClickListener{
+    @Bind(R.id.button) Button mMapButton;
+
     public static final String TAG = RestroomListActivity.class.getSimpleName();
 
     private GoogleApiClient mGoogleApiClient;
@@ -41,6 +44,9 @@ public class RestroomListActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restroom_list);
+        ButterKnife.bind(this);
+        mMapButton.setOnClickListener(this);
+
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
@@ -167,5 +173,13 @@ public class RestroomListActivity extends AppCompatActivity implements
     @OnNeverAskAgain(android.Manifest.permission.ACCESS_FINE_LOCATION)
     void showNeverAskForCamera() {
         Toast.makeText(this, R.string.permission_location_neverask, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(DetailActivity.this, MapsActivity.class);
+        intent.putExtra("restrooms", Parcels.wrap(mRestrooms));
+        startActivity(intent);
+
     }
 }

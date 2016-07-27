@@ -4,4 +4,5 @@
     <string name="button_deny">\"Deny\"</string>
     <string name="permission_location_denied">\"Location Permission Denied\"</string>
     <string name="permission_location_neverask">\"Location Permission Never Ask\"</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
