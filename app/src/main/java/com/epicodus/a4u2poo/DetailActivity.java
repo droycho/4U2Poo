@@ -48,11 +48,16 @@ public class DetailActivity extends AppCompatActivity implements
         }
         mGoogleApiClient.connect();
         getRestrooms("Portland");
+
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        DetailActivityPermissionsDispatcher.requestLocationWithCheck(this);
     }
 
     @NeedsPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
-    @Override
-    public void onConnected(Bundle connectionHint) {
+    public void requestLocation() {
         Log.d(TAG, "mGoogleApiClient.isConnected(): " + mGoogleApiClient.isConnected());
         try {
             mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -64,6 +69,7 @@ public class DetailActivity extends AppCompatActivity implements
             Log.d(TAG, "Non-null location");
             mLatitudeString = (String.valueOf(mCurrentLocation.getLatitude()));
             mLongitudeString = (String.valueOf(mCurrentLocation.getLongitude()));
+            Log.d(TAG, mLatitudeString + ", " + mLongitudeString);
         } else {
             mLocationRequest = LocationRequest.create()
                     .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
