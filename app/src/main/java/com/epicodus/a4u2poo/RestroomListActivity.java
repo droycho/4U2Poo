@@ -17,13 +17,19 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import org.parceler.Parcels;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
@@ -177,7 +183,7 @@ public class RestroomListActivity extends AppCompatActivity implements
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(DetailActivity.this, MapsActivity.class);
+        Intent intent = new Intent(RestroomListActivity.this, MapsActivity.class);
         intent.putExtra("restrooms", Parcels.wrap(mRestrooms));
         startActivity(intent);
 
