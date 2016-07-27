@@ -32,8 +32,8 @@ public class DetailActivity extends AppCompatActivity implements
     private LocationRequest mLocationRequest;
     private ArrayList<Restroom> mRestrooms = new ArrayList<>();
     private Location mCurrentLocation;
-    private String mLatitudeString;
-    private String mLongitudeString;
+    private double mLatitude;
+    private double mLongitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +47,12 @@ public class DetailActivity extends AppCompatActivity implements
                     .build();
         }
         mGoogleApiClient.connect();
-        getRestrooms("Portland");
-
     }
 
     @Override
     public void onConnected(Bundle connectionHint) {
         DetailActivityPermissionsDispatcher.requestLocationWithCheck(this);
+        getRestrooms(mLatitude, mLongitude);
     }
 
     @NeedsPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -67,9 +66,9 @@ public class DetailActivity extends AppCompatActivity implements
         }
         if (mCurrentLocation != null) {
             Log.d(TAG, "Non-null location");
-            mLatitudeString = (String.valueOf(mCurrentLocation.getLatitude()));
-            mLongitudeString = (String.valueOf(mCurrentLocation.getLongitude()));
-            Log.d(TAG, mLatitudeString + ", " + mLongitudeString);
+            mLatitude = mCurrentLocation.getLatitude();
+            mLongitude = mCurrentLocation.getLongitude();
+            Log.d(TAG, mLatitude + ", " + mLongitude);
         } else {
             mLocationRequest = LocationRequest.create()
                     .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -119,9 +118,9 @@ public class DetailActivity extends AppCompatActivity implements
         }
     }
 
-    private void getRestrooms(String location) {
+    private void getRestrooms(double lat, double lng) {
         final RefugeService refugeService = new RefugeService();
-        refugeService.queryRefuge(45.5231, -122.6765, new Callback() {
+        refugeService.queryRefuge(lat, lng, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
