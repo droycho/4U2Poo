@@ -70,7 +70,7 @@ public class RestroomListAdapter extends RecyclerView.Adapter<RestroomListAdapte
             Log.d("click listener", "working!");
             int itemPosition = getLayoutPosition();
             Intent intent = new Intent(mContext, DetailActivity.class);
-            intent.putExtra("position", itemPosition + "");
+            intent.putExtra("position", itemPosition);
             intent.putExtra("restrooms", Parcels.wrap(mRestrooms));
             mContext.startActivity(intent);
 
