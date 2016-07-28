@@ -3,8 +3,11 @@ package com.epicodus.a4u2poo.Models;
 import android.util.Log;
 
 import com.epicodus.a4u2poo.Constants;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcel;
 
@@ -211,11 +214,26 @@ public class Restroom {
     }
 
     public void addToFirebase() {
-        DatabaseReference restroomRef = FirebaseDatabase
+        final Restroom restroom = this;
+        final DatabaseReference restroomRef = FirebaseDatabase
                 .getInstance()
                 .getReference(Constants.FIREBASE_CHILD_RESTROOMS)
                 .child(String.valueOf(mId));
-        restroomRef.setValue(this);
-        Log.d("Restroom.java", "Added to Firebase: " + this.getName());
+        restroomRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null) {
+                    restroomRef.setValue(restroom);
+                    Log.d("Restroom.java", "Added to Firebase: " + restroom.getName());
+                } else {
+                    Log.d("Restroom.java", "Not Added to Firebase: " + restroom.getName());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("Restroom.java", databaseError.toException());
+            }
+        });
     }
 }
