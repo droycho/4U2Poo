@@ -78,7 +78,7 @@ public class RefugeService {
                     int upvotes = restroomJSON.getInt("upvote");
                     Restroom restroom = new Restroom(id, name, street, city, state, country, accessible, unisex,  directions,  comments, latitude,  longitude, downvotes, upvotes);
                     restrooms.add(restroom);
-                    Log.v(TAG, street + "");
+                    Log.v(TAG, downvotes + "");
 
                 }
                 Log.d(TAG, restrooms.size() + " restrooms added to ArrayList");

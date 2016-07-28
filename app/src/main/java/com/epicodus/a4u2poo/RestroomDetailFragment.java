@@ -24,6 +24,10 @@ public class RestroomDetailFragment extends Fragment {
     @Bind(R.id.tStreet) TextView mStreet;
     @Bind(R.id.tRating) TextView mRating;
     @Bind(R.id.tComments) TextView mComments;
+    @Bind(R.id.tADA) TextView mADA;
+    @Bind(R.id.tGender) TextView mGender;
+    @Bind(R.id.tThumbsUp) TextView mThumbsUp;
+    @Bind(R.id.tThumbsDown) TextView mThumbsDown;
 
     private Restroom mRestroom;
 
@@ -49,6 +53,23 @@ public class RestroomDetailFragment extends Fragment {
         mName.setText(mRestroom.getName());
         mStreet.setText(mRestroom.getStreet());
         mComments.setText(mRestroom.getComments());
+        if(mRestroom.isAccessible() == true){
+        mADA.setText("Yes");
+        } else {
+            mADA.setText("No");
+        }
+        if(mRestroom.isUnisex() == true){
+            mGender.setText("Yes");
+        } else {
+            mGender.setText("No");
+        }
+
+        String upVote = Integer.toString(mRestroom.getUpvotes());
+        mThumbsUp.setText(upVote);
+
+        String downVote = Integer.toString(mRestroom.getDownvotes());
+        mThumbsDown.setText(downVote);
+
         mRating.setText("U+1F4A9");
 
         return view;
