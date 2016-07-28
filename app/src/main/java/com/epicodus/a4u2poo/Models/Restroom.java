@@ -227,6 +227,8 @@ public class Restroom {
                     Log.d("Restroom.java", "Added to Firebase: " + restroom.getName());
                 } else {
                     Log.d("Restroom.java", "Not Added to Firebase: " + restroom.getName());
+                    restroom.setFirebaseDownvotes(Integer.parseInt(dataSnapshot.child("firebaseDownvotes").getValue().toString()));
+                    restroom.setFirebaseUpvotes(Integer.parseInt(dataSnapshot.child("firebaseUpvotes").getValue().toString()));
                 }
             }
 
