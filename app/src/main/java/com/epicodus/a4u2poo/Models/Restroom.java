@@ -1,5 +1,11 @@
 package com.epicodus.a4u2poo.Models;
 
+import android.util.Log;
+
+import com.epicodus.a4u2poo.Constants;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.parceler.Parcel;
 
 
@@ -24,7 +30,7 @@ public class Restroom {
     private int mFirebaseDownvotes;
     private int mFirebaseUpvotes;
 
-    public Restroom(int id, String name, String street, String city, String state, String country, boolean accessible, boolean unisex, String directions, String comments, double latitude, double longitude, int downvotes, int upvotes) {
+    public Restroom(int id, String name, String street, String city, String state, String country, boolean accessible, boolean unisex, String directions, String comments, double latitude, double longitude, int refugeDownvotes, int refugeUpvotes) {
         mId = id;
         mName = name;
         mStreet = street;
@@ -39,8 +45,8 @@ public class Restroom {
         mLongitude = longitude;
 //        mCreated = created;
 //        mUpdated = updated;
-        mRefugeDownvotes = downvotes;
-        mRefugeUpvotes = upvotes;
+        mRefugeDownvotes = refugeDownvotes;
+        mRefugeUpvotes = refugeUpvotes;
     }
 
     public Restroom() {
@@ -202,5 +208,14 @@ public class Restroom {
 
     public void downVote() {
         this.setFirebaseDownvotes(getFirebaseDownvotes() + 1);
+    }
+
+    public void addToFirebase() {
+        DatabaseReference restroomRef = FirebaseDatabase
+                .getInstance()
+                .getReference(Constants.FIREBASE_CHILD_RESTROOMS)
+                .child(String.valueOf(mId));
+        restroomRef.setValue(this);
+        Log.d("Restroom.java", "Added to Firebase: " + this.getName());
     }
 }

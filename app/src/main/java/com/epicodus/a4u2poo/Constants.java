@@ -9,4 +9,5 @@ public class Constants {
     public static final String LONGITUDE_SEARCH_KEY = "lng";
     public static final String ADA_SEARCH_KEY = "ada";
     public static final String UNISEX_SEARCH_KEY = "unisex";
+    public static final String FIREBASE_CHILD_RESTROOMS = "restrooms";
 }

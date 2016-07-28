@@ -164,6 +164,10 @@ public class MainActivity extends AppCompatActivity implements
                             mRecyclerView.setHasFixedSize(true);
                         }
                     });
+                    for (Restroom restroom :
+                         mRestrooms) {
+                        restroom.addToFirebase();
+                    }
                 }
 
             }
