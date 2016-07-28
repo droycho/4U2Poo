@@ -4,9 +4,7 @@ import java.util.Date;
 
 import org.parceler.Parcel;
 
-/**
- * Created by Guest on 7/25/16.
- */
+
 @Parcel
 public class Restroom {
     private int mId;
@@ -21,12 +19,12 @@ public class Restroom {
     private String mComments;
     private double mLatitude;
     private double mLongitude;
-    private String mCreated;
-    private String mUpdated;
+//    private Date mCreated;
+//    private Date mUpdated;
     private int mDownvotes;
     private int mUpvotes;
 
-    public Restroom(int id, String name, String street, String city, String state, String country, boolean accessible, boolean unisex, String directions, String comments, double latitude, double longitude, String created, String updated, int downvotes, int upvotes) {
+    public Restroom(int id, String name, String street, String city, String state, String country, boolean accessible, boolean unisex, String directions, String comments, double latitude, double longitude, int downvotes, int upvotes) {
         mId = id;
         mName = name;
         mStreet = street;
@@ -39,8 +37,8 @@ public class Restroom {
         mComments = comments;
         mLatitude = latitude;
         mLongitude = longitude;
-        mCreated = created;
-        mUpdated = updated;
+//        mCreated = created;
+//        mUpdated = updated;
         mDownvotes = downvotes;
         mUpvotes = upvotes;
     }
@@ -149,19 +147,21 @@ public class Restroom {
         mLongitude = longitude;
     }
 
-    public String getCreated() { return mCreated; }
-
-    public void setCreated(String created) {
-        mCreated = created;
-    }
-
-    public String getUpdated() {
-        return mUpdated;
-    }
-
-    public void setUpdated(String updated) {
-        mUpdated = updated;
-    }
+//    public Date getCreated() {
+//        return mCreated;
+//    }
+//
+//    public void setCreated(Date created) {
+//        mCreated = created;
+//    }
+//
+//    public Date getUpdated() {
+//        return mUpdated;
+//    }
+//
+//    public void setUpdated(Date updated) {
+//        mUpdated = updated;
+//    }
 
     public int getDownvotes() {
         return mDownvotes;

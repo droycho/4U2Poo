@@ -5,4 +5,7 @@
     <string name="permission_location_denied">\"Location Permission Denied\"</string>
     <string name="permission_location_neverask">\"Location Permission Never Ask\"</string>
     <string name="title_activity_maps">Map</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
