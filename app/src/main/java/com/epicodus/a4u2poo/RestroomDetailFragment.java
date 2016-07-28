@@ -28,6 +28,7 @@ public class RestroomDetailFragment extends Fragment {
     @Bind(R.id.tGender) TextView mGender;
     @Bind(R.id.tThumbsUp) TextView mThumbsUp;
     @Bind(R.id.tThumbsDown) TextView mThumbsDown;
+    @Bind(R.id.tGenderView) TextView mGenderView;
 
     private Restroom mRestroom;
 

@@ -62,19 +62,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gender Neutral"
+                android:text="Yes"
                 android:id="@+id/tGender"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:gravity="center_vertical"
                 android:layout_below="@+id/tStreet"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_toRightOf="@+id/tGenderView"
+                android:layout_toEndOf="@+id/tGenderView" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ADA Accessable"
-                android:drawableLeft="@mipmap//ic_accessible_black_24dp"
+                android:drawableLeft="@mipmap/ic_accessible_black_24dp"
                 android:id="@+id/tADA"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -86,6 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thumbs Up"
+                android:drawableLeft="@mipmap/ic_thumb_up_black_24dp"
                 android:id="@+id/tThumbsUp"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -97,11 +98,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thumbs Down"
+                android:drawableLeft="@mipmap/ic_thumb_down_black_24dp"
                 android:id="@+id/tThumbsDown"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:gravity="center_vertical"
                 android:layout_below="@+id/tThumbsUp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gender Neutral:"
+                android:id="@+id/tGenderView"
+                android:textSize="15dp"
+                android:gravity="center_vertical"
+                android:layout_below="@+id/tStreet"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
         </RelativeLayout>
