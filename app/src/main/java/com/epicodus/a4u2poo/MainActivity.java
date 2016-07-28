@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getRestrooms(String location) {
         final RefugeService refugeService = new RefugeService();
-        refugeService.queryRefuge(45.5231, -122.6765, new Callback() {
+        refugeService.queryRefuge(45.5231, -122.6765,false, false, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
