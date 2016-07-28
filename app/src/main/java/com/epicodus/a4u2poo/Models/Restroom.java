@@ -1,7 +1,5 @@
 package com.epicodus.a4u2poo.Models;
 
-import java.util.Date;
-
 import org.parceler.Parcel;
 
 
@@ -21,8 +19,10 @@ public class Restroom {
     private double mLongitude;
 //    private Date mCreated;
 //    private Date mUpdated;
-    private int mDownvotes;
-    private int mUpvotes;
+    private int mRefugeDownvotes;
+    private int mRefugeUpvotes;
+    private int mFirebaseDownvotes;
+    private int mFirebaseUpvotes;
 
     public Restroom(int id, String name, String street, String city, String state, String country, boolean accessible, boolean unisex, String directions, String comments, double latitude, double longitude, int downvotes, int upvotes) {
         mId = id;
@@ -39,8 +39,8 @@ public class Restroom {
         mLongitude = longitude;
 //        mCreated = created;
 //        mUpdated = updated;
-        mDownvotes = downvotes;
-        mUpvotes = upvotes;
+        mRefugeDownvotes = downvotes;
+        mRefugeUpvotes = upvotes;
     }
 
     public Restroom() {
@@ -164,20 +164,43 @@ public class Restroom {
 //    }
 
     public int getDownvotes() {
-        return mDownvotes;
+        return mRefugeDownvotes;
     }
 
-    public void setDownvotes(int downvotes) {
-        mDownvotes = downvotes;
+    public void setRefugeDownvotes(int downvotes) {
+        mRefugeDownvotes = downvotes;
     }
 
-    public int getUpvotes() {
-        return mUpvotes;
+    public int getRefugeUpvotes() {
+        return mRefugeUpvotes;
     }
 
     public void setUpvotes(int upvotes) {
-        mUpvotes = upvotes;
+        mRefugeUpvotes = upvotes;
     }
 // TODO: 7/25/16 Add distance and bearing or compute nav metrics locally?
-    
+
+    public int getFirebaseDownvotes() {
+        return mFirebaseDownvotes;
+    }
+
+    public void setFirebaseDownvotes(int mFirebaseDownvotes) {
+        this.mFirebaseDownvotes = mFirebaseDownvotes;
+    }
+
+    public int getFirebaseUpvotes() {
+        return mFirebaseUpvotes;
+    }
+
+    public void setFirebaseUpvotes(int mFirebaseUpvotes) {
+        this.mFirebaseUpvotes = mFirebaseUpvotes;
+    }
+
+    public void upVote() {
+        this.setFirebaseUpvotes(getFirebaseUpvotes() + 1);
+    }
+
+    public void downVote() {
+        this.setFirebaseDownvotes(getFirebaseDownvotes() + 1);
+    }
 }
