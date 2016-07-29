@@ -64,10 +64,10 @@ public class RestroomDetailFragment extends Fragment {
             mGender.setText("No");
         }
 
-        String upVote = Integer.toString(mRestroom.getUpvotes());
+        String upVote = Integer.toString(mRestroom.getRefugeUpvotes());
         mThumbsUp.setText(upVote);
 
-        String downVote = Integer.toString(mRestroom.getDownvotes());
+        String downVote = Integer.toString(mRestroom.getRefugeDownvotes());
         mThumbsDown.setText(downVote);
 
         return view;

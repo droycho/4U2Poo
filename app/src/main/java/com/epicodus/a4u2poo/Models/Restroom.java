@@ -172,7 +172,7 @@ public class Restroom {
 //        mUpdated = updated;
 //    }
 
-    public int getDownvotes() {
+    public int getRefugeDownvotes() {
         return mRefugeDownvotes;
     }
 
