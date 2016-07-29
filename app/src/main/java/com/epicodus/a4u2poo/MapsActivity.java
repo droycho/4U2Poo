@@ -60,6 +60,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double longi = restrooms.get(0).getLongitude();
         LatLng firstMarker = new LatLng(lat, longi);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(firstMarker));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(firstMarker,15));
     }
 }
