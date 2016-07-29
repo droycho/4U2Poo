@@ -22,7 +22,6 @@ public class RestroomDetailFragment extends Fragment {
     @Bind(R.id.pooImageView) ImageView mPooImageView;
     @Bind(R.id.tName) TextView mName;
     @Bind(R.id.tStreet) TextView mStreet;
-    @Bind(R.id.tRating) TextView mRating;
     @Bind(R.id.tComments) TextView mComments;
     @Bind(R.id.tADA) TextView mADA;
     @Bind(R.id.tGender) TextView mGender;
@@ -70,8 +69,6 @@ public class RestroomDetailFragment extends Fragment {
 
         String downVote = Integer.toString(mRestroom.getDownvotes());
         mThumbsDown.setText(downVote);
-
-        mRating.setText("U+1F4A9");
 
         return view;
     }

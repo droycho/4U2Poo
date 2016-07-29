@@ -12,11 +12,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Restroom Finder"
+        android:text="4U2POO"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textSize="30dp"
-        android:id="@+id/textView2" />
+        android:id="@+id/textView2"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,9 +34,13 @@
         android:layout_height="wrap_content"
         android:text="Map"
         android:id="@+id/mapButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView" />
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_below="@+id/textView"
+        android:background="@color/colorPrimaryDark"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" />
 
 
 
