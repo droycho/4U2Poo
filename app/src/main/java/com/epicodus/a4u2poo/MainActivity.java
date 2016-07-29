@@ -47,9 +47,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
         public static final String TAG = RestroomListActivity.class.getSimpleName();
-    @Bind(R.id.searchButton) Button mSearchButton;
-    @Bind(R.id.loginButton) Button mLoginButton;
-    @Bind(R.id.bCreateAccount) Button mCreateAccount;
+    @Bind(R.id.mapButton) Button mMapButton;
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
 
     private ArrayList<Restroom> mRestrooms = new ArrayList<>();
@@ -89,10 +87,7 @@ public class MainActivity extends AppCompatActivity implements
             }
         };
 
-        mSearchButton.setOnClickListener(this);
-        mCreateAccount.setOnClickListener(this);
-        mLoginButton.setOnClickListener(this);
-
+        mMapButton.setOnClickListener(this);
     }
     @Override
     public void onConnected(Bundle connectionHint) {
@@ -232,19 +227,12 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onClick(View view) {
 
-        if (view == mSearchButton) {
+        if (view == mMapButton) {
             Intent intent = new Intent(MainActivity.this, MapsActivity.class);
             intent.putExtra("restrooms", Parcels.wrap(mRestrooms));
             startActivity(intent);
         }
-        if (view == mLoginButton) {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
-        }
-        if (view == mCreateAccount) {
-            Intent intent = new Intent(MainActivity.this, CreateAccountActivity.class);
-            startActivity(intent);
-        }
+
     }
 
 
@@ -263,10 +251,30 @@ public class MainActivity extends AppCompatActivity implements
             logout();
             return true;
         }
+        if (id == R.id.action_sign_up) {
+            signUp();
+            return true;
+        }
+        if (id == R.id.action_login) {
+            login();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
     private void logout() {
         FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+    private void signUp() {
+        Intent intent = new Intent(MainActivity.this, CreateAccountActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+    private void login() {
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

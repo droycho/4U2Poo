@@ -37,16 +37,6 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="U+1F4A9"
-                android:id="@+id/tRating"
-                android:layout_alignTop="@+id/tName"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -58,13 +48,75 @@
                 android:gravity="center_vertical"
                 android:layout_below="@+id/tName"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="5dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Yes"
+                android:id="@+id/tGender"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:layout_below="@+id/tStreet"
+                android:layout_toRightOf="@+id/tGenderView"
+                android:layout_toEndOf="@+id/tGenderView" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ADA Accessable"
+                android:drawableLeft="@mipmap/ic_accessible_black_24dp"
+                android:id="@+id/tADA"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:layout_below="@+id/tGender"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="5dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thumbs Up"
+                android:drawableLeft="@mipmap/ic_thumb_up_black_24dp"
+                android:id="@+id/tThumbsUp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:layout_below="@+id/tADA"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="5dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thumbs Down"
+                android:drawableLeft="@mipmap/ic_thumb_down_black_24dp"
+                android:id="@+id/tThumbsDown"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:layout_below="@+id/tThumbsUp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="5dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gender Neutral:"
+                android:id="@+id/tGenderView"
+                android:textSize="15dp"
+                android:gravity="center_vertical"
+                android:layout_below="@+id/tStreet"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@android:color/white">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -73,7 +125,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_above="@+id/saveToiletButton"
+                android:layout_above="@+id/commentButton"
                 android:paddingLeft="30dp"
                 android:paddingTop="20dp"
                 android:paddingRight="30dp"
@@ -97,12 +149,11 @@
                 android:text="Comments"
                 android:id="@+id/tComments"
                 android:textStyle="italic"
-                android:layout_below="@+id/linearLayout2"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginLeft="26dp"
-                android:layout_marginStart="26dp"
-                android:textColor="@android:color/white" />
+                android:layout_marginLeft="25dp"
+                android:textColor="@android:color/black"
+                android:layout_marginRight="25dp" />
         </RelativeLayout>
     </LinearLayout>
 </FrameLayout>
