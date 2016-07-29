@@ -1,6 +1,13 @@
 package com.epicodus.a4u2poo.Models;
 
-import java.util.Date;
+import android.util.Log;
+
+import com.epicodus.a4u2poo.Constants;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcel;
 
@@ -21,10 +28,12 @@ public class Restroom {
     private double mLongitude;
 //    private Date mCreated;
 //    private Date mUpdated;
-    private int mDownvotes;
-    private int mUpvotes;
+    private int mRefugeDownvotes;
+    private int mRefugeUpvotes;
+    private int mFirebaseDownvotes;
+    private int mFirebaseUpvotes;
 
-    public Restroom(int id, String name, String street, String city, String state, String country, boolean accessible, boolean unisex, String directions, String comments, double latitude, double longitude, int downvotes, int upvotes) {
+    public Restroom(int id, String name, String street, String city, String state, String country, boolean accessible, boolean unisex, String directions, String comments, double latitude, double longitude, int refugeDownvotes, int refugeUpvotes) {
         mId = id;
         mName = name;
         mStreet = street;
@@ -39,8 +48,8 @@ public class Restroom {
         mLongitude = longitude;
 //        mCreated = created;
 //        mUpdated = updated;
-        mDownvotes = downvotes;
-        mUpvotes = upvotes;
+        mRefugeDownvotes = refugeDownvotes;
+        mRefugeUpvotes = refugeUpvotes;
     }
 
     public Restroom() {
@@ -164,20 +173,69 @@ public class Restroom {
 //    }
 
     public int getDownvotes() {
-        return mDownvotes;
+        return mRefugeDownvotes;
     }
 
-    public void setDownvotes(int downvotes) {
-        mDownvotes = downvotes;
+    public void setRefugeDownvotes(int downvotes) {
+        mRefugeDownvotes = downvotes;
     }
 
-    public int getUpvotes() {
-        return mUpvotes;
+    public int getRefugeUpvotes() {
+        return mRefugeUpvotes;
     }
 
     public void setUpvotes(int upvotes) {
-        mUpvotes = upvotes;
+        mRefugeUpvotes = upvotes;
     }
 // TODO: 7/25/16 Add distance and bearing or compute nav metrics locally?
-    
+
+    public int getFirebaseDownvotes() {
+        return mFirebaseDownvotes;
+    }
+
+    public void setFirebaseDownvotes(int mFirebaseDownvotes) {
+        this.mFirebaseDownvotes = mFirebaseDownvotes;
+    }
+
+    public int getFirebaseUpvotes() {
+        return mFirebaseUpvotes;
+    }
+
+    public void setFirebaseUpvotes(int mFirebaseUpvotes) {
+        this.mFirebaseUpvotes = mFirebaseUpvotes;
+    }
+
+    public void upVote() {
+        this.setFirebaseUpvotes(getFirebaseUpvotes() + 1);
+    }
+
+    public void downVote() {
+        this.setFirebaseDownvotes(getFirebaseDownvotes() + 1);
+    }
+
+    public void addToFirebase() {
+        final Restroom restroom = this;
+        final DatabaseReference restroomRef = FirebaseDatabase
+                .getInstance()
+                .getReference(Constants.FIREBASE_CHILD_RESTROOMS)
+                .child(String.valueOf(mId));
+        restroomRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null) {
+                    restroomRef.setValue(restroom);
+                    Log.d("Restroom.java", "Added to Firebase: " + restroom.getName());
+                } else {
+                    Log.d("Restroom.java", "Not Added to Firebase: " + restroom.getName());
+                    restroom.setFirebaseDownvotes(Integer.parseInt(dataSnapshot.child("firebaseDownvotes").getValue().toString()));
+                    restroom.setFirebaseUpvotes(Integer.parseInt(dataSnapshot.child("firebaseUpvotes").getValue().toString()));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("Restroom.java", databaseError.toException());
+            }
+        });
+    }
 }
